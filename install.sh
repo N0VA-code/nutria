@@ -17,6 +17,8 @@ pip install --upgrade -r requirements.txt
 if [[ "$(uname)" == "Linux" ]]; then
     wget "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.12.1-linux-x86_64.tar.gz"
     tar xvzf "elasticsearch-7.12.1-linux-x86_64.tar.gz"
+    mv elasticsearch-7.12.1 es
+    rm elasticsearch-7.12.1-linux-x86_64.tar.gz
 else
     echo "[!] you'll need to install linux or get a elasticsearch yourself"
 fi

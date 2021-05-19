@@ -3,7 +3,7 @@
 APP_ADDR="127.0.0.1"
 APP_PORT="5000"
 
-elasticsearch -d
+./es/bin/elasticsearch -d
 espid=$!
 python app.py --listen-port $APP_PORT --listen-addr $APP_ADDR 2> /dev/null > /dev/null &
 pypid=$!
