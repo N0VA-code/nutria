@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 echo "* * * * * * * * * * * * * * * * * * * * * *"
-echo "  osp_team_project installer"
+echo "  nutria installer"
 echo "  "
 
 if [ $(which apt-get) ]; then
@@ -27,12 +27,12 @@ echo "[+] all dependences are installed"
 
 echo " "
 echo "* * * * * * * * * * * * * * * * * * * * * *"
-echo "  Thanks for installing our program"
+echo "  Thanks for installing nutria"
 echo "  7-team @ OSP class"
 
-read -p "[-] do you want to run the program now? (y/n) : " input
+read -p "[-] do you want to run nutria now? (y/n) : " input
 if [[ "$input" = "y" || "$input" = "Y" ]]; then
-    echo "[+] Running the program now"
+    echo "[+] Running nutria"
     # service script here
     ./run_app.sh
 fi

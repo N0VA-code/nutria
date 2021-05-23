@@ -1,10 +1,10 @@
-# osp_team_project
+# nutria
 * repo for OSP team project  
 
 ## Installing instructions
 <pre>
-git clone https://github.com/seokzoo/osp_team_project.git
-cd osp_team_project
+git clone https://github.com/seokzoo/nutria.git
+cd nutria
 ./install.sh
 </pre>
 

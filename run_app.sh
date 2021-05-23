@@ -3,9 +3,16 @@
 APP_ADDR="127.0.0.1"
 APP_PORT="5000"
 
-./es/bin/elasticsearch -d
+if [[ $(uname) == "Linux" ]]; then
+    DIR=$(dirname $(readlink -f $0))
+else
+    echo "[!] set DIR variable manually"
+    exit # DIR="path"
+fi
+
+exec $DIR/es/bin/elasticsearch -d
 espid=$!
-python app.py --listen-port $APP_PORT --listen-addr $APP_ADDR 2> /dev/null > /dev/null &
+exec python $DIR/nutria/nutria.py --listen-port $APP_PORT --listen-addr $APP_ADDR 2> /dev/null > /dev/null &
 pypid=$!
 
 echo ''
