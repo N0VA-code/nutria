@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>nutria</title>
+    </head>
+    <body>
+        <table>
+            <thead class="text-center">
+                <tr>
+                    <th>Dish</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for element in meal %}
+                <tr>
+                    <td>{{element}}</td>
+                    <td><a href="">button</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>
