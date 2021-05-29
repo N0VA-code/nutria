@@ -5,13 +5,30 @@
         <script type="text/javascript" src="/js/library/jquery-3.6.0.min.js"></script>
     </head>
     <body>
-        <form method="post" action="/">
-            <input type="text" name="dish" value=""/> 
-            <input type="hidden" name="meal" value="{{meal}}">
-            <input type="submit" id="findDish" value="submit"/>
-        </form>
-        <div class="card-body">
+        <div>
+            dish : 
+            <form method="post" action="/">
+                <input type="text" name="dish" value=""/> 
+                <input type="submit" id="findDish" value="submit"/>
+            </form>
+            <a href="/results">analyze</a>
+        </div>
+        <div class="meal-card-body">
+            {% include "meal.html" %}
+        </div>
+        <div class="dishList-card-body">
             {% include "list.html" %}
+        </div>
+        <div>
+            User's info : (h : {{userInfo['height']}}, w : {{userInfo['weight']}})
+        </div>
+        <div>
+            height, weight : 
+            <form method="post" action="/">
+                <input type="text" name="height" value=""/> 
+                <input type="text" name="weight" value=""/> 
+                <input type="submit" id="pushBodyInfo" value="submit"/>
+            </form>
         </div>
         <a href="/credit">credit</a>
     </body>

@@ -8,17 +8,17 @@
             <thead class="text-center">
                 <tr>
                     <th>Dish</th>
-                    <th>Select</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
-                {% for element in dishList %}
+                {% for element in meal %}
                 <tr>
                     <td>{{element['nameOfDish']}}</td>
                     <td>
                         <form action="/" method="post">
-                            <input type="hidden" name="add" value="{{element['id']}}"/>
-                                <input type="submit" value="add"/>
+                            <input type="hidden" name="delete" value="{{element['url']}}"/>
+                                <input type="submit" value="delete"/>
                         </form>
                     </td>
                 </tr>

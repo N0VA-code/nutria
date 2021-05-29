@@ -9,6 +9,11 @@ params = {
     'pg' : ''
         }
 
+def getNutrientInfoFromUrl(url):
+    pContent = requests.get(url).text
+    return pContent
+
+
 def getListOfDish(q, pg=0):
     listOfDish = []
     params['q'] = q
@@ -27,9 +32,11 @@ def getListOfDish(q, pg=0):
     elif numberOfItems / viewItems != 0:
         numberOfItems += 10
     pages = int(numberOfItems / viewItems)
+    cnt = 0
     for e in html.select('table.generic.searchResult td'):
         url = domainUrl + e.select_one('a')['href']
         nameOfDish = e.select_one('a').text
-        listOfDish.append({'nameOfDish' : nameOfDish, 'url' : url})
+        listOfDish.append({'id' : cnt, 'nameOfDish' : nameOfDish, 'url' : url})
+        cnt += 1
     r = {'pages' : pages, 'listOfDish' : listOfDish}
     return r
