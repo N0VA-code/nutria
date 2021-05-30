@@ -9,9 +9,20 @@ params = {
     'pg' : ''
         }
 
-def getNutrientInfoFromUrl(url):
-    pContent = requests.get(url).text
-    return pContent
+def getNutrientInfoFromDish(e):
+    pContent = requests.get(e['url']).content
+    html = BeautifulSoup(pContent, 'html.parser')
+    r = {
+            'nameOfDish' : e['nameOfDish'],
+            'nutritionFacts' : ''
+        }
+    ## for test
+    r['nutritionFacts'] = str(html.select('div.nutrition_facts.international div'))
+    '''
+    for e in html.select('div.nutrition_facts.international div'):
+        r += e.text
+    '''
+    return r
 
 
 def getListOfDish(q, pg=0):

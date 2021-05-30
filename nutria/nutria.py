@@ -58,7 +58,13 @@ def login():
 @app.route('/results')
 def results():
     # results test
-    return request.cookies
+    meal = json.loads(request.cookies.get('meal'))
+    userInfo = json.loads(request.cookies.get('userInfo'))
+    test = ''
+    test += str(userInfo)
+    for dish in meal:
+        test += str(nutria_crawling.getNutrientInfoFromDish(dish)) + '\n'
+    return test
 
 @app.route('/credit')
 def credit():
