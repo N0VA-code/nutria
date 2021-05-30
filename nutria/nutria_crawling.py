@@ -17,7 +17,7 @@ def getNutrientInfoFromUrl(url):
 def getListOfDish(q, pg=0):
     listOfDish = []
     params['q'] = q
-    params['pg'] = pg
+    params['pg'] = str(pg)
     pContent =  requests.get(searchUrl, params=params).content
     html = BeautifulSoup(pContent, 'html.parser')
     summary = html.select_one('div.searchResultSummary')
@@ -25,7 +25,7 @@ def getListOfDish(q, pg=0):
         return None
     ss = ''.join(x for x in summary.text if x not in '\r\t\n').split(' ')
     numberOfItems = int(ss[0][:-1])
-    viewItems = int(ss[2])
+    viewItems = 10
     if numberOfItems < 10:
         numberOfItems = 1
         viewItems = 1
@@ -38,5 +38,5 @@ def getListOfDish(q, pg=0):
         nameOfDish = e.select_one('a').text
         listOfDish.append({'id' : cnt, 'nameOfDish' : nameOfDish, 'url' : url})
         cnt += 1
-    r = {'pages' : pages, 'listOfDish' : listOfDish}
+    r = {'keyword' : q, 'pages' : pages, 'listOfDish' : listOfDish}
     return r

@@ -14,35 +14,41 @@ def home():
         'height' : '',
         'weight' : ''
             }
-    dishList = []
-    if request.cookies.get('dishList') != None:
-        dishList = json.loads(request.cookies.get('dishList'))
+    dishData = []
+    currentPage = 0
     if request.cookies.get('meal') != None:
         meal = json.loads(request.cookies.get('meal'))
     if request.cookies.get('userInfo') != None:
         userInfo = json.loads(request.cookies.get('userInfo'))
+    if request.cookies.get('dishData') != None:
+        dishData = json.loads(request.cookies.get('dishData'))
+    if request.cookies.get('currentPage') != None:
+        currentPage = json.loads(request.cookies.get('currentPage'))
     if request.method == 'POST':
-        if 'weight' and 'height' in request.form:
+        if request.cookies.get('dishData') != None and 'page' in request.form:
+            currentPage = min(int(request.form['page']), int(dishData['pages'])-1)
+            dishData = nutria_crawling.getListOfDish(dishData['keyword'], currentPage)
+        elif 'weight' and 'height' in request.form:
             userInfo['height'] = request.form['height']
             userInfo['weight'] = request.form['weight']
         elif 'dish' in request.form:
-            dishData = nutria_crawling.getListOfDish(request.form['dish'])
-            dishList = dishData['listOfDish']
+            currentPage = 0
+            dishData = nutria_crawling.getListOfDish(request.form['dish'], currentPage)
         elif 'add' in request.form:
-            e = dishList[int(request.form['add'])]
+            e = dishData['listOfDish'][int(request.form['add'])]
             meal = meal + list([e])
         elif 'delete' in request.form:
             for e in meal:
                 if str(e['url']) == str(request.form['delete']):
                     meal.remove(e)
                     break
-
-        resp = make_response(render_template('index.html', meal=meal, dishList=dishList, userInfo=userInfo))
+        resp = make_response(render_template('index.html', meal=meal, dishData=dishData, userInfo=userInfo, currentPage=currentPage))
+        resp.set_cookie('currentPage', json.dumps(currentPage))
         resp.set_cookie('meal', json.dumps(meal))
-        resp.set_cookie('dishList', json.dumps(dishList))
+        resp.set_cookie('dishData', json.dumps(dishData))
         resp.set_cookie('userInfo', json.dumps(userInfo))
     else: # GET
-        resp = render_template('index.html', meal=meal, dishList=dishList, userInfo=userInfo)
+        resp = render_template('index.html', meal=meal, dishData=dishData, userInfo=userInfo, currentPage=currentPage)
     return resp
 
 @app.route('/login') # TBD - login or load
