@@ -14,10 +14,17 @@ def getNutrientInfoFromDish(e):
     html = BeautifulSoup(pContent, 'html.parser')
     r = {
             'nameOfDish' : e['nameOfDish'],
+            'servingSize' : '',
             'nutritionFacts' : ''
         }
     ## for test
-    r['nutritionFacts'] = str(html.select('div.nutrition_facts.international div'))
+    nutritionFacts = {}
+    nutritionFind = html.find('div', class_='nutrition_facts international')
+    r['servingSize'] = nutritionFind.find('div', class_='serving_size black serving_size_value').text
+    for e in nutritionFind.find_all('div', class_='nutrient')[1:]:
+        r['nutritionFacts'] += str(e)
+
+    #r['nutritionFacts'] = nutritionFacts
     '''
     for e in html.select('div.nutrition_facts.international div'):
         r += e.text
